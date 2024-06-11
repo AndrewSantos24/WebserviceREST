@@ -1,0 +1,33 @@
+# Arquivos de compilação e cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambiente virtual/instalação
+venv/
+env/
+bin/
+lib/
+include/
+*.egg
+*.egg-info/
+.installed.cfg
+pip-selfcheck.json
+
+# Logs e arquivos temporários
+*.log
+*.bak
+*.swp
+*.tmp
+
+# Arquivos de configuração
+*.cfg
+*.ini
+*.conf
+
+# Arquivos de saída de IDEs
+.idea/
+.vscode/
+
+# Arquivos de dependência
+.lock
