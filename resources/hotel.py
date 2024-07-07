@@ -1,4 +1,5 @@
-from flask_restful import Resource
+from flask_restful import Resource , reqparse
+from models.hotel import HotelModel
 
 hoteis =[
     {
@@ -27,21 +28,61 @@ hoteis =[
     }
 ]
 
+
+
 class Hoteis (Resource):
     def get(self):
         return {'Hoteis':hoteis}
 
 class Hotel(Resource):
-    def get(self,hotel_id):
+    
+    argumentos = reqparse.RequestParser()
+    argumentos.add_argument('nome')
+    argumentos.add_argument('estrelas')
+    argumentos.add_argument('diaria')
+    argumentos.add_argument('cidade')
+
+    def find_hotel(hotel_id):
         for hotel in hoteis:
-            # print(hotel)
             if hotel['hotel_id'] == hotel_id:
                 return hotel
+        return None
+
+    def get(self,hotel_id):
+        hotel = Hotel.find_hotel(hotel_id)
+        if hotel:
+            return hotel
         return {'message':'Hotel not Fund!'}, 404 #status code nao encontrado
-        # pass
+
     def post(self,hotel_id):
-        pass
+        try:
+
+            dados = Hotel.argumentos.parse_args()
+
+            hotel_objeto = HotelModel(hotel_id, **dados)
+            novo_hotel = hotel_objeto.json()
+            hoteis.append(novo_hotel)
+            return novo_hotel, 200
+        except:
+            return 400
+
+        
     def put(self,hotel_id):
-        pass
+        dados = Hotel.argumentos.parse_args()
+
+        hotel_objeto = HotelModel(hotel_id, **dados)
+        novo_hotel = hotel_objeto.json()
+        hotel = Hotel.find_hotel(hotel_id)
+        if hotel:
+            hotel.update(novo_hotel)
+            return novo_hotel, 200 #OK
+        hoteis.append(novo_hotel)
+        return novo_hotel, 201  # created
+    
     def delete(self,hotel_id):
+        #para ele nao pensar que estamos usando o hoteis ja passado colocamos como global
+        global hoteis
+        #vamos usar list compreenchion 
+        hoteis = [hotel for hotel in hoteis if hotel['hotel_id'] != hotel_id]
+        return {'message': 'hotel Deleted.'}
         pass
