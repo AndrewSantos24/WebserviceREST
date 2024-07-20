@@ -24,3 +24,15 @@ class HotelModel(banco.Model):
             'diaria': self.diaria,
             'cidade': self.cidade
         }
+    #cls e a abreviaçao da classe como um todo
+    # usando o query basicamente so usamos o trecho o metodo para consulta pqp foda
+    @classmethod
+    def find_hotel(cls,hotel_id):
+        # e pegando o primeiro resultado usando o first()
+        hotel = cls.query.filter_by(hotel_id=hotel_id).first() # SELECT * FROM hoteis WHERE hotel_id = hotel_id                                                    
+        if hotel:
+            return hotel
+        return None
+    def save_hotel(self) :
+        banco.session.add(self)
+        banco.session.commit()                                               

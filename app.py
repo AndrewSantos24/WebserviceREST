@@ -20,7 +20,7 @@ with app.app_context():
 
 # Definindo os endpoints da API
 api.add_resource(Hoteis, '/Hoteis')
-api.add_resource(Hotel, '/hoteis/<string:hotel_id>')
+api.add_resource(Hotel, '/hoteis/<string:hotel_id>') 
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -28,8 +28,6 @@ hoteis =[
     }
 ]
 
-
-
 class Hoteis (Resource):
     def get(self):
         return {'Hoteis':hoteis}
@@ -42,11 +40,6 @@ class Hotel(Resource):
     argumentos.add_argument('diaria')
     argumentos.add_argument('cidade')
 
-    def find_hotel(hotel_id):
-        for hotel in hoteis:
-            if hotel['hotel_id'] == hotel_id:
-                return hotel
-        return None
 
     def get(self,hotel_id):
         hotel = Hotel.find_hotel(hotel_id)
@@ -56,13 +49,12 @@ class Hotel(Resource):
 
     def post(self,hotel_id):
         try:
-        
+            if HotelModel.find_hotel(hotel_id):
+                return {"mensage":'Hotel {} ja cadastrado !'.format(hotel_id)}, 400 # erro com significado bad requests
             dados = Hotel.argumentos.parse_args()
-
             hotel_objeto = HotelModel(hotel_id, **dados)
-            novo_hotel = hotel_objeto.json()
-            hoteis.append(novo_hotel)
-            return novo_hotel, 200
+            hotel_objeto.save_hotel()
+            return hotel_objeto.json(), 200
         except:
             return 400
 
