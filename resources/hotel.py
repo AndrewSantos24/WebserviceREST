@@ -56,7 +56,7 @@ class Hotel(Resource):
 
     def post(self,hotel_id):
         try:
-
+        
             dados = Hotel.argumentos.parse_args()
 
             hotel_objeto = HotelModel(hotel_id, **dados)
