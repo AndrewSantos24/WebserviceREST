@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from resources.hotel import Hoteis, Hotel
-from sql_alquemy import banco  # Importe o SQLAlchemy
+from sql_alquemy import banco 
 
 app = Flask(__name__)
 
