@@ -29,7 +29,7 @@ class HotelModel(banco.Model):
     @classmethod
     def find_hotel(cls,hotel_id):
         # e pegando o primeiro resultado usando o first()
-        hotel = cls.query.filter_by(hotel_id=hotel_id).first() # SELECT * FROM hoteis WHERE hotel_id = hotel_id                                                    
+        hotel = cls.query.filter_by(hotel_id=hotel_id).first() # SELECT * FROM hoteis WHERE hotel_id = hotel_id
         if hotel:
             return hotel
         return None

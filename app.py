@@ -19,7 +19,9 @@ with app.app_context():
     banco.create_all()
 
 # Definindo os endpoints da API
+# Rota Hoteis
 api.add_resource(Hoteis, '/Hoteis')
+#Rota hoteis
 api.add_resource(Hotel, '/hoteis/<string:hotel_id>') 
 
 if __name__ == '__main__':

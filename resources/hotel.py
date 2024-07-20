@@ -42,10 +42,10 @@ class Hotel(Resource):
 
 
     def get(self,hotel_id):
-        hotel = Hotel.find_hotel(hotel_id)
+        hotel = HotelModel.find_hotel(hotel_id)
         if hotel:
-            return hotel
-        return {'message':'Hotel not Fund!'}, 404 #status code nao encontrado
+            return hotel.json()
+        return {"message":'Hotel {} not Fund!'.format(hotel_id)}, 404 #status code nao encontrado
 
     def post(self,hotel_id):
         try:
